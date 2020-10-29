@@ -160,8 +160,8 @@ fi
 # Execute the sed command to replace the tags with their ANSI escape equivalent
 sed -e "s,${CLR_START}c${CLR_END},\x1B[0m,g"                                              `# Clear All Functions`       \
     -e "s,${CLR_START}e${CLR_END},\x1B,g"                                                 `# Escape Substitution`       \
-    -e ""                                                             `#`                           \
-    -e ""                                                             `# (F)oreground Functions`    \
+    -e ""                                                             `#`                                               \
+    -e ""                                                             `# (F)oreground Functions`                        \
     -e "s,${CLR_START}f:k${CLR_END},\x1B[30m,g"                                           `# Foreground Black`          \
     -e "s,${CLR_START}f:r${CLR_END},\x1B[31m,g"                                           `# Foreground Red`            \
     -e "s,${CLR_START}f:g${CLR_END},\x1B[32m,g"                                           `# Foreground Green`          \
@@ -181,8 +181,8 @@ sed -e "s,${CLR_START}c${CLR_END},\x1B[0m,g"                                    
     -e "s,${CLR_START}f${CLR_END},\x1B[39m,g"                                             `# Foreground Clear`          \
     -e "s,${CLR_START}f:\([0-9]*\):\([0-9]*\):\([0-9]*\)${CLR_END},\x1B[38;2;\1;\2;\3m,g" `# Foreground RGB`            \
     -e "s,${CLR_START}f:\([0-9]*\)${CLR_END},\x1B[38;5;\1m,g"                             `# Foreground Color Select`   \
-    -e ""                                                             `#`                           \
-    -e ""                                                             `# (B)ackground Functions`    \
+    -e ""                                                             `#`                                               \
+    -e ""                                                             `# (B)ackground Functions`                        \
     -e "s,${CLR_START}b:k${CLR_END},\x1B[40m,g"                                           `# Background Black`          \
     -e "s,${CLR_START}b:r${CLR_END},\x1B[41m,g"                                           `# Background Red`            \
     -e "s,${CLR_START}b:g${CLR_END},\x1B[42m,g"                                           `# Background Green`          \
@@ -202,28 +202,28 @@ sed -e "s,${CLR_START}c${CLR_END},\x1B[0m,g"                                    
     -e "s,${CLR_START}b${CLR_END},\x1B[49m,g"                                             `# Background Clear`          \
     -e "s,${CLR_START}b:\([0-9]*\):\([0-9]*\):\([0-9]*\)${CLR_END},\x1B[48;2;\1;\2;\3m,g" `# Background RGB`            \
     -e "s,${CLR_START}b:\([0-9]*\)${CLR_END},\x1B[48;5;\1m,g"                             `# Background Color Select`   \
-    -e ""                                                             `#`                           \
-    -e ""                                                             `# (I)talics`                 \
+    -e ""                                                             `#`                                               \
+    -e ""                                                             `# (I)talics`                                     \
     -e "s,${CLR_START}i:1${CLR_END},\x1B[3m,g"                                            `# Italics On`                \
     -e "s,${CLR_START}i:0${CLR_END},\x1B[23m,g"                                           `# Italics Off`               \
-    -e ""                                                             `#`                           \
-    -e ""                                                             `# (U)nderline`               \
+    -e ""                                                             `#`                                               \
+    -e ""                                                             `# (U)nderline`                                   \
     -e "s,${CLR_START}u:1${CLR_END},\x1B[4m,g"                                            `# Underline On`              \
     -e "s,${CLR_START}u:0${CLR_END},\x1B[24m,g"                                           `# Underline Off`             \
-    -e ""                                                             `#`                           \
-    -e ""                                                             `# (x) Strike`                \
+    -e ""                                                             `#`                                               \
+    -e ""                                                             `# (x) Strike`                                    \
     -e "s,${CLR_START}x:1${CLR_END},\x1B[9m,g"                                            `# Strike On`                 \
     -e "s,${CLR_START}x:0${CLR_END},\x1B[29m,g"                                           `# Strike Off`                \
-    -e ""                                                             `#`                           \
-    -e ""                                                             `# (S) Bold (Strong)`         \
+    -e ""                                                             `#`                                               \
+    -e ""                                                             `# (S) Bold (Strong)`                             \
     -e "s,${CLR_START}s:1${CLR_END},\x1B[1m,g"                                            `# Bold On`                   \
     -e "s,${CLR_START}s:0${CLR_END},\x1B[22m,g"                                           `# Bold Off`                  \
-    -e ""                                                             `#`                           \
-    -e ""                                                             `# (W) Light (Weak)`          \
+    -e ""                                                             `#`                                               \
+    -e ""                                                             `# (W) Light (Weak)`                              \
     -e "s,${CLR_START}w:1${CLR_END},\x1B[2m,g"                                            `# Light On`                  \
     -e "s,${CLR_START}w:0${CLR_END},\x1B[22m,g"                                           `# Light Off`                 \
-    -e ""                                                             `#`                           \
-    -e ""                                                             `# (R)everse`                 \
+    -e ""                                                             `#`                                               \
+    -e ""                                                             `# (R)everse`                                     \
     -e "s,${CLR_START}r:1${CLR_END},\x1B[7m,g"                                            `# Reverse On`                \
     -e "s,${CLR_START}r:0${CLR_END},\x1B[27m,g"                                           `# Reverse Off`               \
     -e ""                                                             `#`
