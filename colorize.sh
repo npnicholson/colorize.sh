@@ -1,18 +1,17 @@
 #!/bin/sh
-# ============================================================================
-# | colorize.sh :: Entalon LLC                                                  |
-# |                                                                          |
-# |       ███████╗███╗░░██╗████████╗░█████╗░██╗░░░░░░█████╗░███╗░░██╗        |
-# |       ██╔════╝████╗░██║╚══██╔══╝██╔══██╗██║░░░░░██╔══██╗████╗░██║        |
-# |       █████╗░░██╔██╗██║░░░██║░░░███████║██║░░░░░██║░░██║██╔██╗██║        |
-# |       ██╔══╝░░██║╚████║░░░██║░░░██╔══██║██║░░░░░██║░░██║██║╚████║        |
-# |       ███████╗██║░╚███║░░░██║░░░██║░░██║███████╗╚█████╔╝██║░╚███║        |
-# |       ╚══════╝╚═╝░░╚══╝░░░╚═╝░░░╚═╝░░╚═╝╚══════╝░╚════╝░╚═╝░░╚══╝        |
-# |                                                                          |
-# | Copyright (C) Entalon, LLC - All Rights Reserved                         |
-# | GNU General Public License                                               |
-# | Written by Norris Nicholson <norris@entalon.com>, October 2020           |
-# ============================================================================
+# ==================================================================================
+# | colorize.sh :: Entalon LLC                                                     |
+# |                                                                                |
+# | ░█████╗░░█████╗░██╗░░░░░░█████╗░██████╗░██╗███████╗███████╗░░░░██████╗██╗░░██╗ |
+# | ██╔══██╗██╔══██╗██║░░░░░██╔══██╗██╔══██╗██║╚════██║██╔════╝░░░██╔════╝██║░░██║ |
+# | ██║░░╚═╝██║░░██║██║░░░░░██║░░██║██████╔╝██║░░███╔═╝█████╗░░░░░╚█████╗░███████║ |
+# | ██║░░██╗██║░░██║██║░░░░░██║░░██║██╔══██╗██║██╔══╝░░██╔══╝░░░░░░╚═══██╗██╔══██║ |
+# | ╚█████╔╝╚█████╔╝███████╗╚█████╔╝██║░░██║██║███████╗███████╗██╗██████╔╝██║░░██║ |
+# | ░╚════╝░░╚════╝░╚══════╝░╚════╝░╚═╝░░╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═════╝░╚═╝░░╚═╝ |
+# |                                                                                |
+# | GNU General Public License                                                     |
+# | Written by Norris Nicholson, October 2020                                      |
+# ==================================================================================
 # Purpose:
 #  colorize.sh takes a piped input and converts ASCII friendly tags to ANSI
 #  escape codes. This can then be piped elsewhere, for example, to less -r in 
@@ -63,9 +62,9 @@ VERSION="1.5"
 usage() {
     echo -e ""
     echo -e "\x1B[34mColorize.sh\x1B[0m - Parses piped input for ASCII friendly tags (as defined below) to be"
-    echo -e "           replacedwith their ANSI Escape Code equivalent. To use colorize.sh, place these tags (listed"
-    echo -e "           below under ANSI Functions, Color Operations, and Modifiers) in a text file and pipe it"
-    echo -e "           to this program using cat. The tags will be converted to their ANSI Escape Code equivalents."
+    echo -e " replaced with their ANSI Escape Code equivalent. To use colorize.sh, place these tags (listed"
+    echo -e " below under ANSI Functions, Color Operations, and Modifiers) in a text file and pipe it"
+    echo -e " to this program using cat. The tags will be converted to their ANSI Escape Code equivalents."
     echo -e ""
     echo -e "\x1B[3mWhereis:\x1B[0m \x1B[4m$(whereis colorize.sh)\x1B[24m"
     echo -e ""
@@ -125,7 +124,8 @@ usage() {
     echo -e "\x1B[3mFor more information on ANSI Codes, see \x1B[23m\x1B[34m\x1B[4mhttps://en.wikipedia.org/wiki/ANSI_escape_code\x1B[0m"
     echo -e ""
     echo -e "\x1B[3mColorize.sh Version: $VERSION\x1B[0m"
-    echo -e "\x1B[3mCopyright 2020, Entalon LLC\x1B[0m"
+    echo -e "\x1B[3mCopyright 2020, Norris Nicholson\x1B[0m"
+    echo -e "\x1B[3mGNU General Public License\x1B[0m"
     echo -e ""
     echo -e "This program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\nGNU General Public License for more details."
     echo -e ""
