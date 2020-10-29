@@ -1,6 +1,6 @@
 #!/bin/sh
 # ============================================================================
-# | colorize :: Entalon LLC                                                  |
+# | colorize.sh :: Entalon LLC                                                  |
 # |                                                                          |
 # |       ███████╗███╗░░██╗████████╗░█████╗░██╗░░░░░░█████╗░███╗░░██╗        |
 # |       ██╔════╝████╗░██║╚══██╔══╝██╔══██╗██║░░░░░██╔══██╗████╗░██║        |
@@ -14,7 +14,7 @@
 # | Written by Norris Nicholson <norris@entalon.com>, October 2020           |
 # ============================================================================
 # Purpose:
-#  colorize takes a piped input and converts ASCII friendly tags to ANSI
+#  colorize.sh takes a piped input and converts ASCII friendly tags to ANSI
 #  escape codes. This can then be piped elsewhere, for example, to less -r in 
 #  order to view color in text documentation
 #
@@ -62,14 +62,14 @@ VERSION="1.5"
 # Usage Output
 usage() {
     echo -e ""
-    echo -e "\x1B[34mColorize\x1B[0m - Parses piped input for ASCII friendly tags (as defined below) to be replaced"
-    echo -e "           with their ANSI Escape Code equivalent. To use colorize, place these tags (listed below"
-    echo -e "           under ANSI Functions, Color Operations, and Modifiers) in a text file and pipe it to this"
-    echo -e "           program using cat. The tags will be converted to their ANSI Escape Code equivalents."
+    echo -e "\x1B[34mColorize.sh\x1B[0m - Parses piped input for ASCII friendly tags (as defined below) to be"
+    echo -e "           replacedwith their ANSI Escape Code equivalent. To use colorize.sh, place these tags (listed"
+    echo -e "           below under ANSI Functions, Color Operations, and Modifiers) in a text file and pipe it"
+    echo -e "           to this program using cat. The tags will be converted to their ANSI Escape Code equivalents."
     echo -e ""
-    echo -e "\x1B[3mWhereis:\x1B[0m \x1B[4m$(whereis colorize)\x1B[24m"
+    echo -e "\x1B[3mWhereis:\x1B[0m \x1B[4m$(whereis colorize.sh)\x1B[24m"
     echo -e ""
-    echo -e "\x1B[3mUsage:\x1B[23m \x1B[33mpipe\x1B[0m | \x1B[34mcolorize\x1B[0m [\x1B[36m-h\x1B[0m] [| \x1B[33mpipe out\x1B[0m]"
+    echo -e "\x1B[3mUsage:\x1B[23m \x1B[33mpipe\x1B[0m | \x1B[34mcolorize.sh\x1B[0m [\x1B[36m-h\x1B[0m] [| \x1B[33mpipe out\x1B[0m]"
     echo -e "  \x1B[36m-h\x1B[0m             :         Show this help message, then exit"
     echo -e "  \x1B[36m-q\x1B[0m             :         Supress warning and error messages"
     echo -e "  \x1B[36m-v\x1B[0m             :         Show the version number, then exit"
@@ -124,7 +124,7 @@ usage() {
     echo -e ""
     echo -e "\x1B[3mFor more information on ANSI Codes, see \x1B[23m\x1B[34m\x1B[4mhttps://en.wikipedia.org/wiki/ANSI_escape_code\x1B[0m"
     echo -e ""
-    echo -e "\x1B[3mColorize Version: $VERSION\x1B[0m"
+    echo -e "\x1B[3mColorize.sh Version: $VERSION\x1B[0m"
     echo -e "\x1B[3mCopyright 2020, Entalon LLC\x1B[0m"
     echo -e ""
     echo -e "This program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\nGNU General Public License for more details."
@@ -152,7 +152,7 @@ fi
 
 # Check that data was piped into this script
 if [ ! -p /dev/stdin ]; then
-    [ -z ${QUIET+x} ] && echo -e "\x1B[31mNo Pipe!\x1B[0m Colorize only accepts input through pipes. Please refer to the help below:";
+    [ -z ${QUIET+x} ] && echo -e "\x1B[31mNo Pipe!\x1B[0m Colorize.sh only accepts input through pipes. Please refer to the help below:";
     [ -z ${QUIET+x} ] && usage
     exit 1
 fi
