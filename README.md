@@ -1,5 +1,5 @@
 # colorize.sh
-Shell Script for replacing editor safe color tags with ANSI Escape Sequences
+Shell Script for replacing editor safe color tags with ANSI Escape Sequences using sed
 
 Replaces ASCII friendly tags (as defined below) from piped input with their ANSI Escape Code equivalent. To use colorize.sh, place these tags (listed below under ANSI Functions) in a text file and pipe it to this program using cat (see examples). The tags within the pipe will be converted to their ANSI Escape Code equivalents and output to stdout.
 
