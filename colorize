@@ -30,6 +30,9 @@
 #  GNU General Public License for more details.
 #
 # Revision History:
+# Version 1.5
+#  - Added support for changing the tag start and end strings
+#
 # Version 1.4
 #  - Added support for foreground and background color reverse (Reverse Video)
 #
@@ -46,7 +49,7 @@
 #  - Initial Release
 
 # Current Version
-VERSION="1.4"
+VERSION="1.5"
 
 # Get the tag start string if it has been defined from the environment. Otherwise,
 # use the default "{"
