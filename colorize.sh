@@ -58,6 +58,11 @@ VERSION="1.5"
 # use the default "}"
 [ -z "$CLR_END" ] && CLR_END="}";
 
+# Get the ANSI Escape char if it has been defined from the environment. Otherwise,
+# use the default "\x1B". printf is used to support POSIX implementations where sed -e
+# does not digest escapes
+[ -z "$CLR_ESC" ] && CLR_ESC=$(printf "\x1B")
+
 # Usage Output
 usage() {
     printf "\n"
@@ -158,71 +163,71 @@ if [ ! -p /dev/stdin ]; then
 fi
 
 # Execute the sed command to replace the tags with their ANSI escape equivalent
-sed -e "s,${CLR_START}c${CLR_END},\x1B[0m,g"                                              `# Clear All Functions`       \
-    -e "s,${CLR_START}e${CLR_END},\x1B,g"                                                 `# Escape Substitution`       \
-    -e ""                                                             `#`                                               \
-    -e ""                                                             `# (F)oreground Functions`                        \
-    -e "s,${CLR_START}f:k${CLR_END},\x1B[30m,g"                                           `# Foreground Black`          \
-    -e "s,${CLR_START}f:r${CLR_END},\x1B[31m,g"                                           `# Foreground Red`            \
-    -e "s,${CLR_START}f:g${CLR_END},\x1B[32m,g"                                           `# Foreground Green`          \
-    -e "s,${CLR_START}f:y${CLR_END},\x1B[33m,g"                                           `# Foreground Yellow`         \
-    -e "s,${CLR_START}f:b${CLR_END},\x1B[34m,g"                                           `# Foreground Blue`           \
-    -e "s,${CLR_START}f:m${CLR_END},\x1B[35m,g"                                           `# Foreground Magenta`        \
-    -e "s,${CLR_START}f:c${CLR_END},\x1B[36m,g"                                           `# Foreground Cyan`           \
-    -e "s,${CLR_START}f:w${CLR_END},\x1B[37m,g"                                           `# Foreground White`          \
-    -e "s,${CLR_START}f:bk${CLR_END},\x1B[90m,g"                                          `# Foreground Bright Black`   \
-    -e "s,${CLR_START}f:br${CLR_END},\x1B[91m,g"                                          `# Foreground Bright Red`     \
-    -e "s,${CLR_START}f:bg${CLR_END},\x1B[92m,g"                                          `# Foreground Bright Green`   \
-    -e "s,${CLR_START}f:by${CLR_END},\x1B[93m,g"                                          `# Foreground Bright Yellow`  \
-    -e "s,${CLR_START}f:bb${CLR_END},\x1B[94m,g"                                          `# Foreground Bright Blue`    \
-    -e "s,${CLR_START}f:bm${CLR_END},\x1B[95m,g"                                          `# Foreground Bright Magenta` \
-    -e "s,${CLR_START}f:bc${CLR_END},\x1B[96m,g"                                          `# Foreground Bright Cyan`    \
-    -e "s,${CLR_START}f:bw${CLR_END},\x1B[97m,g"                                          `# Foreground Bright White`   \
-    -e "s,${CLR_START}f${CLR_END},\x1B[39m,g"                                             `# Foreground Clear`          \
-    -e "s,${CLR_START}f:\([0-9]*\):\([0-9]*\):\([0-9]*\)${CLR_END},\x1B[38;2;\1;\2;\3m,g" `# Foreground RGB`            \
-    -e "s,${CLR_START}f:\([0-9]*\)${CLR_END},\x1B[38;5;\1m,g"                             `# Foreground Color Select`   \
-    -e ""                                                             `#`                                               \
-    -e ""                                                             `# (B)ackground Functions`                        \
-    -e "s,${CLR_START}b:k${CLR_END},\x1B[40m,g"                                           `# Background Black`          \
-    -e "s,${CLR_START}b:r${CLR_END},\x1B[41m,g"                                           `# Background Red`            \
-    -e "s,${CLR_START}b:g${CLR_END},\x1B[42m,g"                                           `# Background Green`          \
-    -e "s,${CLR_START}b:y${CLR_END},\x1B[43m,g"                                           `# Background Yellow`         \
-    -e "s,${CLR_START}b:b${CLR_END},\x1B[44m,g"                                           `# Background Blue`           \
-    -e "s,${CLR_START}b:m${CLR_END},\x1B[45m,g"                                           `# Background Magenta`        \
-    -e "s,${CLR_START}b:c${CLR_END},\x1B[46m,g"                                           `# Background Cyan`           \
-    -e "s,${CLR_START}b:w${CLR_END},\x1B[47m,g"                                           `# Background White`          \
-    -e "s,${CLR_START}b:bk${CLR_END},\x1B[100m,g"                                         `# Background Bright Black`   \
-    -e "s,${CLR_START}b:br${CLR_END},\x1B[101m,g"                                         `# Background Bright Red`     \
-    -e "s,${CLR_START}b:bg${CLR_END},\x1B[102m,g"                                         `# Background Bright Green`   \
-    -e "s,${CLR_START}b:by${CLR_END},\x1B[103m,g"                                         `# Background Bright Yellow`  \
-    -e "s,${CLR_START}b:bb${CLR_END},\x1B[104m,g"                                         `# Background Bright Blue`    \
-    -e "s,${CLR_START}b:bm${CLR_END},\x1B[105m,g"                                         `# Background Bright Magenta` \
-    -e "s,${CLR_START}b:bc${CLR_END},\x1B[106m,g"                                         `# Background Bright Cyan`    \
-    -e "s,${CLR_START}b:bw${CLR_END},\x1B[410m,g"                                         `# Background Bright White`   \
-    -e "s,${CLR_START}b${CLR_END},\x1B[49m,g"                                             `# Background Clear`          \
-    -e "s,${CLR_START}b:\([0-9]*\):\([0-9]*\):\([0-9]*\)${CLR_END},\x1B[48;2;\1;\2;\3m,g" `# Background RGB`            \
-    -e "s,${CLR_START}b:\([0-9]*\)${CLR_END},\x1B[48;5;\1m,g"                             `# Background Color Select`   \
-    -e ""                                                             `#`                                               \
-    -e ""                                                             `# (I)talics`                                     \
-    -e "s,${CLR_START}i:1${CLR_END},\x1B[3m,g"                                            `# Italics On`                \
-    -e "s,${CLR_START}i:0${CLR_END},\x1B[23m,g"                                           `# Italics Off`               \
-    -e ""                                                             `#`                                               \
-    -e ""                                                             `# (U)nderline`                                   \
-    -e "s,${CLR_START}u:1${CLR_END},\x1B[4m,g"                                            `# Underline On`              \
-    -e "s,${CLR_START}u:0${CLR_END},\x1B[24m,g"                                           `# Underline Off`             \
-    -e ""                                                             `#`                                               \
-    -e ""                                                             `# (x) Strike`                                    \
-    -e "s,${CLR_START}x:1${CLR_END},\x1B[9m,g"                                            `# Strike On`                 \
-    -e "s,${CLR_START}x:0${CLR_END},\x1B[29m,g"                                           `# Strike Off`                \
-    -e ""                                                             `#`                                               \
-    -e ""                                                             `# (S) Bold (Strong)`                             \
-    -e "s,${CLR_START}s:1${CLR_END},\x1B[1m,g"                                            `# Bold On`                   \
-    -e "s,${CLR_START}s:0${CLR_END},\x1B[22m,g"                                           `# Bold Off`                  \
-    -e ""                                                             `#`                                               \
-    -e ""                                                             `# (W) Light (Weak)`                              \
-    -e "s,${CLR_START}w:1${CLR_END},\x1B[2m,g"                                            `# Light On`                  \
-    -e "s,${CLR_START}w:0${CLR_END},\x1B[22m,g"                                           `# Light Off`                 \
-    -e ""                                                             `#`                                               \
-    -e ""                                                             `# (R)everse`                                     \
-    -e "s,${CLR_START}r:1${CLR_END},\x1B[7m,g"                                            `# Reverse On`                \
-    -e "s,${CLR_START}r:0${CLR_END},\x1B[27m,g"                                           `# Reverse Off`          printf    -e ""                                                             `#`
+sed -e "s,${CLR_START}c${CLR_END},${CLR_ESC}[0m,g"                                              `# Clear All Functions`       \
+    -e "s,${CLR_START}e${CLR_END},${CLR_ESC},g"                                                 `# Escape Substitution`       \
+    -e ""                                                                                       `#`                           \
+    -e ""                                                                                       `# (F)oreground Functions`    \
+    -e "s,${CLR_START}f:k${CLR_END},${CLR_ESC}[30m,g"                                           `# Foreground Black`          \
+    -e "s,${CLR_START}f:r${CLR_END},${CLR_ESC}[31m,g"                                           `# Foreground Red`            \
+    -e "s,${CLR_START}f:g${CLR_END},${CLR_ESC}[32m,g"                                           `# Foreground Green`          \
+    -e "s,${CLR_START}f:y${CLR_END},${CLR_ESC}[33m,g"                                           `# Foreground Yellow`         \
+    -e "s,${CLR_START}f:b${CLR_END},${CLR_ESC}[34m,g"                                           `# Foreground Blue`           \
+    -e "s,${CLR_START}f:m${CLR_END},${CLR_ESC}[35m,g"                                           `# Foreground Magenta`        \
+    -e "s,${CLR_START}f:c${CLR_END},${CLR_ESC}[36m,g"                                           `# Foreground Cyan`           \
+    -e "s,${CLR_START}f:w${CLR_END},${CLR_ESC}[37m,g"                                           `# Foreground White`          \
+    -e "s,${CLR_START}f:bk${CLR_END},${CLR_ESC}[90m,g"                                          `# Foreground Bright Black`   \
+    -e "s,${CLR_START}f:br${CLR_END},${CLR_ESC}[91m,g"                                          `# Foreground Bright Red`     \
+    -e "s,${CLR_START}f:bg${CLR_END},${CLR_ESC}[92m,g"                                          `# Foreground Bright Green`   \
+    -e "s,${CLR_START}f:by${CLR_END},${CLR_ESC}[93m,g"                                          `# Foreground Bright Yellow`  \
+    -e "s,${CLR_START}f:bb${CLR_END},${CLR_ESC}[94m,g"                                          `# Foreground Bright Blue`    \
+    -e "s,${CLR_START}f:bm${CLR_END},${CLR_ESC}[95m,g"                                          `# Foreground Bright Magenta` \
+    -e "s,${CLR_START}f:bc${CLR_END},${CLR_ESC}[96m,g"                                          `# Foreground Bright Cyan`    \
+    -e "s,${CLR_START}f:bw${CLR_END},${CLR_ESC}[97m,g"                                          `# Foreground Bright White`   \
+    -e "s,${CLR_START}f${CLR_END},${CLR_ESC}[39m,g"                                             `# Foreground Clear`          \
+    -e "s,${CLR_START}f:\([0-9]*\):\([0-9]*\):\([0-9]*\)${CLR_END},${CLR_ESC}[38;2;\1;\2;\3m,g" `# Foreground RGB`            \
+    -e "s,${CLR_START}f:\([0-9]*\)${CLR_END},${CLR_ESC}[38;5;\1m,g"                             `# Foreground Color Select`   \
+    -e ""                                                                                       `#`                           \
+    -e ""                                                                                       `# (B)ackground Functions`    \
+    -e "s,${CLR_START}b:k${CLR_END},${CLR_ESC}[40m,g"                                           `# Background Black`          \
+    -e "s,${CLR_START}b:r${CLR_END},${CLR_ESC}[41m,g"                                           `# Background Red`            \
+    -e "s,${CLR_START}b:g${CLR_END},${CLR_ESC}[42m,g"                                           `# Background Green`          \
+    -e "s,${CLR_START}b:y${CLR_END},${CLR_ESC}[43m,g"                                           `# Background Yellow`         \
+    -e "s,${CLR_START}b:b${CLR_END},${CLR_ESC}[44m,g"                                           `# Background Blue`           \
+    -e "s,${CLR_START}b:m${CLR_END},${CLR_ESC}[45m,g"                                           `# Background Magenta`        \
+    -e "s,${CLR_START}b:c${CLR_END},${CLR_ESC}[46m,g"                                           `# Background Cyan`           \
+    -e "s,${CLR_START}b:w${CLR_END},${CLR_ESC}[47m,g"                                           `# Background White`          \
+    -e "s,${CLR_START}b:bk${CLR_END},${CLR_ESC}[100m,g"                                         `# Background Bright Black`   \
+    -e "s,${CLR_START}b:br${CLR_END},${CLR_ESC}[101m,g"                                         `# Background Bright Red`     \
+    -e "s,${CLR_START}b:bg${CLR_END},${CLR_ESC}[102m,g"                                         `# Background Bright Green`   \
+    -e "s,${CLR_START}b:by${CLR_END},${CLR_ESC}[103m,g"                                         `# Background Bright Yellow`  \
+    -e "s,${CLR_START}b:bb${CLR_END},${CLR_ESC}[104m,g"                                         `# Background Bright Blue`    \
+    -e "s,${CLR_START}b:bm${CLR_END},${CLR_ESC}[105m,g"                                         `# Background Bright Magenta` \
+    -e "s,${CLR_START}b:bc${CLR_END},${CLR_ESC}[106m,g"                                         `# Background Bright Cyan`    \
+    -e "s,${CLR_START}b:bw${CLR_END},${CLR_ESC}[410m,g"                                         `# Background Bright White`   \
+    -e "s,${CLR_START}b${CLR_END},${CLR_ESC}[49m,g"                                             `# Background Clear`          \
+    -e "s,${CLR_START}b:\([0-9]*\):\([0-9]*\):\([0-9]*\)${CLR_END},${CLR_ESC}[48;2;\1;\2;\3m,g" `# Background RGB`            \
+    -e "s,${CLR_START}b:\([0-9]*\)${CLR_END},${CLR_ESC}[48;5;\1m,g"                             `# Background Color Select`   \
+    -e ""                                                                                       `#`                           \
+    -e ""                                                                                       `# (I)talics`                 \
+    -e "s,${CLR_START}i:1${CLR_END},${CLR_ESC}[3m,g"                                            `# Italics On`                \
+    -e "s,${CLR_START}i:0${CLR_END},${CLR_ESC}[23m,g"                                           `# Italics Off`               \
+    -e ""                                                                                       `#`                           \
+    -e ""                                                                                       `# (U)nderline`               \
+    -e "s,${CLR_START}u:1${CLR_END},${CLR_ESC}[4m,g"                                            `# Underline On`              \
+    -e "s,${CLR_START}u:0${CLR_END},${CLR_ESC}[24m,g"                                           `# Underline Off`             \
+    -e ""                                                                                       `#`                           \
+    -e ""                                                                                       `# (x) Strike`                \
+    -e "s,${CLR_START}x:1${CLR_END},${CLR_ESC}[9m,g"                                            `# Strike On`                 \
+    -e "s,${CLR_START}x:0${CLR_END},${CLR_ESC}[29m,g"                                           `# Strike Off`                \
+    -e ""                                                                                       `#`                           \
+    -e ""                                                                                       `# (S) Bold (Strong)`         \
+    -e "s,${CLR_START}s:1${CLR_END},${CLR_ESC}[1m,g"                                            `# Bold On`                   \
+    -e "s,${CLR_START}s:0${CLR_END},${CLR_ESC}[22m,g"                                           `# Bold Off`                  \
+    -e ""                                                                                       `#`                           \
+    -e ""                                                                                       `# (W) Light (Weak)`          \
+    -e "s,${CLR_START}w:1${CLR_END},${CLR_ESC}[2m,g"                                            `# Light On`                  \
+    -e "s,${CLR_START}w:0${CLR_END},${CLR_ESC}[22m,g"                                           `# Light Off`                 \
+    -e ""                                                                                       `#`                           \
+    -e ""                                                                                       `# (R)everse`                 \
+    -e "s,${CLR_START}r:1${CLR_END},${CLR_ESC}[7m,g"                                            `# Reverse On`                \
+    -e "s,${CLR_START}r:0${CLR_END},${CLR_ESC}[27m,g"                                           `# Reverse Off`
